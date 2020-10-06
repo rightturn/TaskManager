@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>
+                    <h3 >
                         Tasks
                         <a href="{{ route('tasks.create')}}" class="btn btn-primary float-right">Create Task</a>
                     </h3>
@@ -14,8 +14,8 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                        <div id="status" class="alert alert-success" role="alert">
+                           <span>{{ session('status') }}</span>
                         </div>
                     @endif
 
@@ -26,7 +26,7 @@
                                 <th>Last Run</th>
                                 <th>Average Runtime</th>
                                 <th>Next Run</th>
-                                <th>on/off</th>
+                                <th>Status</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -37,11 +37,11 @@
                                 <td>{{ $task->last_run }}</td>
                                 <td>{{ $task->average_runtime }} seconds</td>
                                 <td>{{ $task->next_run }}</td>
-                                <td>
+                                <td class="text-center">
                                     <form id="toggle-form-{{$task->id}}" method="post" action="{{ route('tasks.toggle',$task->id)}}">
                                         {{ csrf_field()}}
                                         {{method_field('PUT')}}
-                                        <input type="checkbox" data-offstyle="danger"  data-toggle="toggle"  onchange="getElementById('toggle-form-{{$task->id}}').submit();" {{ $task->is_active ? 'checked' : '' }} >
+                            <input  type="checkbox" class="form-check-input" onchange="getElementById('toggle-form-{{$task->id}}').submit();" {{ $task->is_active ? 'checked' : '' }}>
                                     </form>
                                 </td>
                                 <td>
@@ -55,9 +55,19 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $tasks->links() }}
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>  
+<script>
+    setTimeout(() => {
+        const elem = document.getElementById("status");
+        elem.style.height = "0px";
+        elem.style.opacity = "0";
+        // elem.style.margin = "0px";
+        // elem.style.padding = "0px";
+    }, 4000);
+</script>
 @endsection
