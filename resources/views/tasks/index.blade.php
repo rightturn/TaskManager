@@ -17,6 +17,7 @@
                         <div id="status" class="alert alert-success" role="alert">
                            <span>{{ session('status') }}</span>
                         </div>
+                    </div>
                     @endif
 
                     <table class="table">
