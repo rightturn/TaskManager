@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>
+                    <h3 >
                         Tasks
                         <a href="{{ route('tasks.create')}}" class="btn btn-primary float-right">Create Task</a>
                     </h3>
@@ -14,9 +14,8 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                    <div id="status">
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                        <div id="status" class="alert alert-success" role="alert">
+                           <span>{{ session('status') }}</span>
                         </div>
                     </div>
                     @endif
@@ -66,7 +65,10 @@
 <script>
     setTimeout(() => {
         const elem = document.getElementById("status");
-        elem.parentNode.removeChild(elem);
+        elem.style.height = "0px";
+        elem.style.opacity = "0";
+        // elem.style.margin = "0px";
+        // elem.style.padding = "0px";
     }, 4000);
 </script>
 @endsection
